@@ -32,7 +32,7 @@ public class TestVWOlogin {
         driver = new ChromeDriver(options);
 //        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
-    @Test(priority = 1, groups = {"negative","sanity"})
+    @Test(priority = 1, groups = {"negative","sanity"}) 
     @Severity(SeverityLevel.BLOCKER)
     @Description("TC#1 -> Verify the Invalid username and valid password, Login is not successfull..!")
     public void testInvalidLogin() throws InterruptedException {
@@ -48,7 +48,7 @@ public class TestVWOlogin {
         Assert.assertEquals(errorString,"Your email, password, IP address or location did not match");
     }
 
-    @Test(enabled = true, priority = 2, groups = {"positive","sanity"})
+    @Test(enabled = true, priority = 2, groups = {"positive","sanity","stage"})
     @Description("TC#2 -> Verify the valid username and valid password, Login is  successfull..!")
     public void testValidLogin() throws InterruptedException {
         driver.get("https://app.vwo.com/#/login");
