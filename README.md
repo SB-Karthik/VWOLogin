@@ -5,4 +5,4 @@
 - TestNG
 - Maven 
 - Selenium
--  Aluure reports
+-  Allure reports

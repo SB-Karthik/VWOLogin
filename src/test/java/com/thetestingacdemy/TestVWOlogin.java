@@ -11,9 +11,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -25,14 +23,15 @@ public class TestVWOlogin {
     WebDriver driver;
 
     @BeforeSuite
-    public void setUp(){
+    public void setUp() {
+
         options = new ChromeOptions();
         options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
         options.addArguments("--start-maximized");
         driver = new ChromeDriver(options);
-//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
-    @Test(priority = 1, groups = {"negative","sanity"}) 
+
+    @Test(priority = 1, groups = {"negative", "sanity"})
     @Severity(SeverityLevel.BLOCKER)
     @Description("TC#1 -> Verify the Invalid username and valid password, Login is not successfull..!")
     public void testInvalidLogin() throws InterruptedException {
@@ -45,10 +44,10 @@ public class TestVWOlogin {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOf(errorMessage));
 
         String errorString = driver.findElement(By.className("notification-box-description")).getText();
-        Assert.assertEquals(errorString,"Your email, password, IP address or location did not match");
+        Assert.assertEquals(errorString, "Your email, password, IP address or location did not match");
     }
 
-    @Test(enabled = true, priority = 2, groups = {"positive","sanity","stage"})
+    @Test(enabled = true, priority = 2, groups = {"positive", "sanity", "stage"})
     @Description("TC#2 -> Verify the valid username and valid password, Login is  successfull..!")
     public void testValidLogin() throws InterruptedException {
         driver.get("https://app.vwo.com/#/login");
@@ -58,8 +57,6 @@ public class TestVWOlogin {
         driver.findElement(By.id("js-login-btn")).click();
 
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated((By.cssSelector("h1.page-heading"))));
-//        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.urlContains("https://app.vwo.com/#/dashboard"));
-
 
         Assert.assertEquals(driver.getTitle(),"Dashboard");
         Assert.assertEquals(driver.getCurrentUrl(),"https://app.vwo.com/#/dashboard");
@@ -67,7 +64,8 @@ public class TestVWOlogin {
     }
 
     @AfterSuite
-    public void tearDown(){
-        driver.quit();
+    public void tearDown() {
+        System.out.println("tearDown() method is being executed");
+            driver.quit();
     }
 }
